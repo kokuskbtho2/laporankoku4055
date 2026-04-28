@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Borang Pelaporan Aktiviti Kokurikulum</title>
+  <title>Pelaporan Aktiviti Kokurikulum</title>
   <script src="/_sdk/element_sdk.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
@@ -163,7 +163,73 @@
 
   <script>
     // Data Guru (Senarai diringkaskan, sila letak senarai penuh anda di sini)
-    const teachersList = ["ABDUL KAHAR BIN AWANG SEMAN", "AINA ATHIRAH BINTI AHMAD SENARI", "AMIRAH BINTI MOHD ALWI"]; 
+    const teachersList =  "ABDUL KAHAR BIN AWANG SEMAN",
+      "AINA ATHIRAH BINTI AHMAD SENARI",
+      "AMIRAH BINTI MOHD ALWI",
+      "AMINUDDIN BIN ISMAIL",
+      "ARINAWATI BINTI MOHD YAH",
+      "AWATIF BINTI MD YUSOP",
+      "AZHAIRIN ZULAIHAN BINTI BADRUL HISHAM",
+      "AZIMA BINTI MAT ZIN @ ISMAIL",
+      "AZIZAH BINTI MOHAMMED",
+      "AZMAN BIN OTHMAN",
+      "DINITA A/P MUNIANDY",
+      "EMIL NORULHUDA BINTI AMIRUDDIN",
+      "FAIZA BINTI HASBULLAH",
+      "FAIZAH BINTI IBRAHIM",
+      "FARAWAHIDA BINTI MOHD SAFFUAN",
+      "FARIDATUL AKMAAR BINTI MAT SAID",
+      "FATIN FARHANA BINTI AMINUDDIN",
+      "HAFIZI BIN OMAR",
+      "HARISAH BINTI AWANG",
+      "HARIZ IRFAN BIN HUSSIN PAKRI",
+      "HASMAWATI BINTI OTHMAN",
+      "HAZRAH BINTI MOHAMAD",
+      "IRDINA AFIQAH BINTI ISMAIL",
+      "IRMA AZNITA BINTI KAMBALI",
+      "KANG CHIN KOAT",
+      "KASUMMA BINTI PANDAK KAMAL",
+      "MARYANI BINTI DRAMAN",
+      "MAWADDAH HUDA BINTI MOHD AFFANDI",
+      "MAZILA HAZLIN BINTI ABD MAJIT",
+      "MOHAMAD MUNIR BIN ZAINUN",
+      "MOHAMED SYAKIR BIN MD TAHIR",
+      "MOHD SHAMILULHAYAT BIN MOHD ASRI",
+      "MUHAMMAD AKASYAH SAIDON",
+      "MUHAMMAD IRFAN WAZIF BIN MOHD NIZAM",
+      "NADIAH BINTI IDRIS",
+      "NAIM AISAMUDDIN BIN ABDUL RAZAK",
+      "NAZIMATUL AMANI BINTI RAMLI",
+      "NIK HAZIMAN BIN CHE DAUD",
+      "NIK NUR LIYANA BINTI NIK MOHD FAUZI",
+      "NITHILA A/P JAKANATHAN",
+      "NOOR AZIZAH BINTI MD BAHARUDDIN",
+      "NORAIDA BINTI MUSTAPHA",
+      "NORAMANI BINTI MAT NOR",
+      "NORMA BINTI ISMAIL",
+      "NORUL HUDA BINTI JAMIN",
+      "NOUR EZIEZAH BINTI MAZMAN",
+      "NUR FATHIN BINTI ZAKI",
+      "NUR SYAFIQAH BINTI ZAHIRUDIN",
+      "NUR ZURIYATIE BINTI AZIZ",
+      "NURUL HAZIQAH BINTI RAMLI",
+      "NURUL ULYA BINTI NORDIN",
+      "PIRAKAS A/L SHANGAR",
+      "ROHAIZA BINTI RAZALI",
+      "RUBINA BINTI RAMLI",
+      "SAHARINA BINTI ABDULLAH",
+      "SITI HAWA BINTI MAT YAJID",
+      "SITI MASHITAH BINTI MOHD ASRI",
+      "SITI NORASYIKIN BINTI ABDULLAH",
+      "SITI NUR DIANA BINTI MOHAMAD NASIR",
+      "SULAIMAN BIN HASSAN",
+      "SUZILA BINTI MOHD NOR",
+      "TG IHTIFAZUDDIN BIN TG IBRAHIM",
+      "UMI NUR HANIRA BINTI ISMAIL",
+      "WAN FAIRIS BIN A. KAMAR",
+      "ZABIDI BIN MOHAMMAD",
+      "ZANIRAH BINTI A. BAKAR"
+    ];
 
     function generateGuruFields() {
       const container = document.getElementById('guruContainer');
@@ -190,7 +256,7 @@
       }
     }
 
-    function generatePDFPreview() {
+  function generatePDFPreview() {
       const data = {
         unit: document.getElementById('editableUnit').value || 'UNIT BERUNIFORM',
         perjumpaanKali: document.getElementById('perjumpaanKali').value,
@@ -212,78 +278,89 @@
       };
 
       const pdfWin = window.open('', '_blank');
-     <style>
-  @page { 
-    size: A4 portrait; 
-    margin: 0; 
-  }
-  body { 
-    margin: 0; 
-    padding: 0; 
-    font-family: 'Poppins', sans-serif;
-    width: 210mm; 
-    height: 297mm;
-    /* Force background colors and images */
-    -webkit-print-color-adjust: exact !important; 
-    print-color-adjust: exact !important;
-    background-color: #991B1B; /* Fallback color */
-  }
-  
-  /* Gunakan pseudo-element untuk memastikan latar belakang melekat */
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 210mm;
-    height: 297mm;
-    z-index: -1;
-    background-image: url('https://i.imgur.com/j5Ojna9.png') !important;
-    background-repeat: no-repeat !important;
-    background-position: center center !important;
-    background-size: cover !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
+      pdfWin.document.write(`
+        <html>
+        <head>
+          <title>Laporan - ${data.tajuk}</title>
+          <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+          <style>
+            @page { size: A4 portrait; margin: 0; }
+            body { 
+              margin: 0; padding: 0; font-family: 'Poppins', sans-serif;
+              width: 210mm; height: 297mm;
+              position: relative;
+              overflow: hidden;
+            }
+            
+            /* Trik paling berkesan: Guna imej sebenar sebagai background */
+            .bg-full {
+              position: absolute;
+              top: 0; left: 0;
+              width: 210mm; height: 297mm;
+              z-index: -1;
+            }
 
-  .content { 
-    position: relative;
-    z-index: 1;
-    padding: 15mm 20mm; 
-    color: white; 
-    height: 297mm; 
-    box-sizing: border-box; 
-  }
-  
-  /* Pastikan card putih juga muncul */
-  .info-box, .white-card, .img-item {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  
-  .header-img { width: 70px; display: block; margin: 0 auto 10px; }
-  .title { text-align: center; margin-bottom: 20px; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); }
-  .info-box { background: rgba(255,255,255,0.95) !important; color: black; border-radius: 8px; padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-  .label { font-weight: 700; font-size: 8pt; color: #DC2626; text-transform: uppercase; }
-  .val { font-weight: 600; font-size: 9pt; }
-  .section-title { font-weight: 700; border-bottom: 2px solid rgba(255,255,255,0.3); margin: 15px 0 8px; font-size: 10pt; }
-  .white-card { background: rgba(255,255,255,0.95) !important; color: black; padding: 10px; border-radius: 6px; font-size: 8.5pt; font-weight: 600; }
-  .guru-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
-  .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .img-item { background: white !important; padding: 3px; border-radius: 4px; text-align: center; }
-  .img-item img { width: 100%; height: 90px; object-fit: cover; display: block; }
-  .img-cap { font-size: 7pt; color: black; font-weight: bold; margin-top: 2px; }
-  .footer-sig { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; text-align: center; }
-  .sig-line { border-top: 1.5px solid white; margin-top: 40px; padding-top: 5px; font-weight: 700; font-size: 9pt; }
-</style>
+            .content { 
+              position: relative;
+              z-index: 10;
+              padding: 15mm 20mm; 
+              color: white; 
+              height: 100%; 
+              box-sizing: border-box; 
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+            
+            .header-img { width: 70px; display: block; margin: 0 auto 10px; }
+            .title { text-align: center; margin-bottom: 15px; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); }
+            
+            .info-box { 
+              background: white !important; 
+              color: black; border-radius: 8px; padding: 10px; 
+              display: grid; grid-template-columns: 1fr 1fr; gap: 8px; 
+              margin-bottom: 12px;
+              -webkit-print-color-adjust: exact !important;
+            }
+            
+            .label { font-weight: 700; font-size: 7.5pt; color: #DC2626; text-transform: uppercase; }
+            .val { font-weight: 600; font-size: 8.5pt; }
+            
+            .section-title { font-weight: 700; border-bottom: 2px solid rgba(255,255,255,0.4); margin: 12px 0 6px; font-size: 9pt; }
+            
+            .white-card { 
+              background: white !important; 
+              color: black; padding: 8px 12px; border-radius: 6px; 
+              font-size: 8pt; font-weight: 600;
+              -webkit-print-color-adjust: exact !important;
+            }
+            
+            .guru-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+            .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 5px; }
+            
+            .img-item { 
+              background: white !important; 
+              padding: 4px; border-radius: 4px; text-align: center;
+              -webkit-print-color-adjust: exact !important;
+            }
+            .img-item img { width: 100%; height: 85px; object-fit: cover; display: block; }
+            .img-cap { font-size: 6.5pt; color: black; font-weight: bold; margin-top: 2px; }
+            
+            .footer-sig { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 25px; text-align: center; }
+            .sig-line { border-top: 1.5px solid white; margin-top: 35px; padding-top: 5px; font-weight: 700; font-size: 8pt; }
+            
+            /* Sembunyikan button masa print */
+            @media print { .no-print { display: none; } }
+          </style>
         </head>
         <body onload="window.print()">
+          <img src="https://i.imgur.com/j5Ojna9.png" class="bg-full">
+
           <div class="content">
             <img src="https://i.imgur.com/DLy3jZn.png" class="header-img">
             <div class="title">
-                <div style="font-size: 14pt; font-weight: 700;">LAPORAN AKTIVITI KOKURIKULUM</div>
-                <div style="font-size: 10pt;">SK BANDAR TUN HUSSEIN ONN 2</div>
-                <div style="margin-top:5px;"><span style="background:white; color:red; padding:2px 10px; border-radius:10px; font-weight:700; font-size:8pt;">UNIT: ${data.unit} (KALI KE-${data.perjumpaanKali})</span></div>
+                <div style="font-size: 13pt; font-weight: 700;">LAPORAN AKTIVITI KOKURIKULUM</div>
+                <div style="font-size: 9pt;">SK BANDAR TUN HUSSEIN ONN 2</div>
+                <div style="margin-top:5px;"><span style="background:white !important; color:red; padding:2px 12px; border-radius:12px; font-weight:700; font-size:7.5pt; -webkit-print-color-adjust: exact !important;">UNIT: ${data.unit} (KALI KE-${data.perjumpaanKali})</span></div>
             </div>
 
             <div class="info-box">
@@ -294,7 +371,7 @@
             </div>
 
             <div class="section-title">TAJUK AKTIVITI</div>
-            <div class="white-card" style="text-transform: uppercase; color: red;">${data.tajuk}</div>
+            <div class="white-card" style="text-transform: uppercase; color: #DC2626;">${data.tajuk}</div>
 
             <div class="section-title">SENARAI GURU</div>
             <div class="white-card">
@@ -314,19 +391,19 @@
             </div>
 
             <div class="section-title">REFLEKSI & ULASAN</div>
-            <div class="white-card" style="margin-bottom:10px;">${data.refleksi || '-'}</div>
+            <div class="white-card" style="margin-bottom:8px;">${data.refleksi || '-'}</div>
             <div class="white-card">${data.ulasan || '-'}</div>
 
             <div class="footer-sig">
                 <div>
-                    <div style="font-size: 8pt;">Disediakan Oleh:</div>
+                    <div style="font-size: 7.5pt;">Disediakan Oleh:</div>
                     <div class="sig-line">${data.murid || '........................................'}</div>
-                    <div style="font-size: 7pt; opacity: 0.8;">SETIAUSAHA UNIT</div>
+                    <div style="font-size: 6.5pt; opacity: 0.9;">SETIAUSAHA UNIT</div>
                 </div>
                 <div>
-                    <div style="font-size: 8pt;">Disemak Oleh:</div>
+                    <div style="font-size: 7.5pt;">Disemak Oleh:</div>
                     <div class="sig-line">${data.penyemak || '........................................'}</div>
-                    <div style="font-size: 7pt; opacity: 0.8;">GURU PENASIHAT</div>
+                    <div style="font-size: 6.5pt; opacity: 0.9;">GURU PENASIHAT</div>
                 </div>
             </div>
           </div>
