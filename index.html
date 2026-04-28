@@ -1,1271 +1,308 @@
 <!doctype html>
 <html lang="ms" class="h-full">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Borang Pelaporan Aktiviti Kokurikulum</title>
-  <script src="/_sdk/element_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet">
-  <style>
-    body {
-      box-sizing: border-box;
-    }
-    * {
-      font-family: 'Poppins', sans-serif;
-      font-size: 16px;
-    }
-    input, textarea, select {
-      transition: all 0.2s ease;
-    }
-    input:focus, textarea:focus, select:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-    }
-    /* Ensure images fill preview boxes properly */
-    #preview1 img, #preview2 img, #preview3 img, #preview4 img {
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
-      border-radius: 6px;
-      cursor: grab;
-    }
-    #preview1 img:active, #preview2 img:active, #preview3 img:active, #preview4 img:active {
-      cursor: grabbing;
-    }
-    .image-container {
-      position: relative;
-      overflow: hidden;
-      touch-action: none;
-    }
-    /* Screen mode - Large comfortable layout like Google Forms */
-    .a4-container {
-      width: 100%;
-      max-width: 900px;
-      min-height: auto;
-      margin: 0 auto;
-    }
-    .header-main {
-      font-size: 28px;
-    }
-    
-    /* Mobile responsive adjustments */
-    @media (max-width: 768px) {
-      * {
-        font-size: 15px;
-      }
-      .header-main {
-        font-size: 24px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      * {
-        font-size: 14px;
-      }
-      .header-main {
-        font-size: 20px;
-      }
-    }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borang Pelaporan Aktiviti Kokurikulum</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    * { font-family: 'Poppins', sans-serif; }
+    body { background: #F5E6D3; }
+    
+    /* Perbaikan pada preview gambar agar tidak penyet */
+    .preview-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover !important; 
+      border-radius: 6px;
+    }
 
-    /* Print styles for A4 Portrait */
-    @media print {
-      body {
-        background: white !important;
-        padding: 0 !important;
-        margin: 0 !important;
-      }
-      
-      #app-wrapper {
-        padding: 0 !important;
-        margin: 0 !important;
-      }
-      
-      .a4-container {
-        max-width: 100% !important;
-        width: 210mm !important;
-        min-height: 297mm !important;
-        margin: 0 !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        background: white !important;
-        page-break-after: always;
-      }
-      
-      form {
-        padding: 15mm 15mm 10mm 15mm !important;
-        background: white !important;
-      }
-      
-      * {
-        font-size: 11pt !important;
-      }
-      
-      .header-main {
-        font-size: 18pt !important;
-      }
-      
-      /* Hide print button */
-      #printBtn {
-        display: none !important;
-      }
-      
-      /* Hide footer */
-      #app-wrapper > p {
-        display: none !important;
-      }
-      
-      /* Optimize spacing for print */
-      section {
-        margin-bottom: 12pt !important;
-        page-break-inside: avoid;
-      }
-      
-      .grid-2 {
-        page-break-inside: avoid;
-      }
-      
-      /* Ensure images fit properly */
-      .grid.grid-cols-2 img {
-        max-height: 120pt !important;
-        object-fit: cover;
-      }
-      
-      /* Simplify colors for print */
-      input, textarea, select {
-        border: 1px solid #000 !important;
-        background: white !important;
-        color: #000 !important;
-        font-weight: normal !important;
-      }
-      
-      label {
-        color: #000 !important;
-        font-weight: bold !important;
-      }
-      
-      .bg-red-100\/80 {
-        background: #f5f5f5 !important;
-      }
-      
-      .bg-amber-50\/80 {
-        background: #f9f9f9 !important;
-        border-left: 3pt solid #666 !important;
-      }
-      
-      /* Optimize signature section */
-      .signature-section {
-        page-break-inside: avoid;
-      }
-      
-      /* Remove interactive elements styling */
-      button[type="button"] {
-        display: none !important;
-      }
-      
-      /* Ensure form gradient background shows as light gray */
-      .a4-container {
-        background: linear-gradient(135deg, #e0e0e0 0%, #d0d0d0 100%) !important;
-      }
-    }
-  </style>
-  <style>@view-transition { navigation: auto; }</style>
-  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
- </head>
- <body class="h-full overflow-auto" style="background: #F5E6D3;">
-  <div id="app-wrapper" class="w-full h-full py-4 md:py-8 px-2 md:px-4">
-   <div class="a4-container shadow-2xl rounded-lg md:rounded-2xl overflow-hidden relative" style="background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);">
-    <!-- Form Content -->
-    <form id="reportForm" class="relative z-10 px-4 md:px-8 lg:px-12 py-8 space-y-6 max-w-4xl mx-auto">
-     <!-- Header Section -->
-     <div class="pt-2 pb-4 mb-2">
-      <div class="flex flex-col items-center justify-center gap-0 mb-0">
-       <img src="https://i.imgur.com/DLy3jZn.png" alt="Logo Sekolah" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.display='none'; this.alt='Logo unavailable';" class="w-32 h-32 object-contain drop-shadow-lg mb-2">
-       <div class="text-center">
-        <h1 class="header-main font-bold tracking-wider text-white drop-shadow-lg mb-0">LAPORAN AKTIVITI KOKURIKULUM</h1>
-        <h2 class="header-main font-bold tracking-wide text-white drop-shadow-lg">SK BANDAR TUN HUSSEIN ONN 2</h2>
-       </div>
-      </div>
-      <div class="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-4 mt-4">
-       <div class="inline-flex items-center bg-white/95 rounded-full px-5 py-2 backdrop-blur-sm shadow-lg w-full md:w-auto justify-center">
-        <label for="editableUnit" class="text-gray-800 mr-3 font-bold text-base whitespace-nowrap">Unit:</label> <input type="text" id="editableUnit" placeholder="Sila taip nama unit" class="bg-transparent border-b-2 border-blue-600 text-gray-800 font-bold px-3 py-1 focus:outline-none focus:border-blue-800 uppercase text-center text-base w-full md:w-auto" style="min-width: 180px; max-width: 300px;">
-       </div>
-       <div class="inline-flex items-center bg-white/95 rounded-full px-5 py-2 backdrop-blur-sm shadow-lg w-full md:w-auto justify-center">
-        <label for="perjumpaanKali" class="text-gray-800 mr-3 font-bold text-base whitespace-nowrap">Perjumpaan Kali Ke-</label> <select id="perjumpaanKali" class="bg-transparent border-b-2 border-blue-600 text-gray-800 font-bold px-3 py-1 focus:outline-none focus:border-blue-800 text-center text-base"> <option value="">-</option> <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option> <option value="6">6</option> <option value="7">7</option> <option value="8">8</option> <option value="9">9</option> <option value="10">10</option> <option value="11">11</option> <option value="12">12</option> </select>
-       </div>
-      </div>
-     </div><!-- Maklumat Asas -->
-     <section class="space-y-4">
-      <!-- Row 1: Tarikh and Tempat -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-       <!-- Tarikh -->
-       <div>
-        <label for="tarikh" class="block text-base font-bold text-white mb-2">📅 Tarikh</label> <input type="date" id="tarikh" class="w-full px-4 py-3 border-2 border-red-300 rounded-lg focus:border-red-500 bg-red-50/90 font-medium shadow-sm text-base" required>
-       </div><!-- Tempat -->
-       <div>
-        <label for="tempat" class="block text-base font-bold text-white mb-2">📍 Tempat</label> <input type="text" id="tempat" placeholder="Masukkan tempat aktiviti" class="w-full px-4 py-3 border-2 border-red-300 rounded-lg focus:border-red-500 bg-red-50/90 uppercase font-medium shadow-sm text-base" required>
-       </div>
-      </div><!-- Row 2: Masa and Kehadiran -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-       <!-- Masa -->
-       <div>
-        <label for="masa" class="block text-base font-bold text-white mb-2">⏰ Masa</label>
-        <div class="flex gap-2">
-         <input type="text" id="masa" placeholder="Contoh: 2:30" class="flex-1 px-4 py-3 border-2 border-red-300 rounded-lg focus:border-red-500 bg-red-50/90 font-medium shadow-sm text-base" required> <select id="masaWaktu" class="px-4 py-3 border-2 border-red-300 rounded-lg focus:border-red-500 bg-red-50/90 font-medium shadow-sm text-base" required> <option value="">-</option> <option value="Pagi">Pagi</option> <option value="Petang">Petang</option> <option value="Malam">Malam</option> </select>
-        </div>
-       </div><!-- Kehadiran -->
-       <div>
-        <label class="block text-base font-bold text-white mb-2">👥 Jumlah Kehadiran</label>
-        <div class="flex items-center gap-2">
-         <input type="number" id="ahliHadir" min="0" placeholder="Hadir" class="w-full px-4 py-3 border-2 border-red-300 rounded-lg focus:border-red-500 bg-red-50/90 font-medium shadow-sm text-base" required> <span class="text-white font-bold text-lg">/</span> <input type="number" id="jumlahAhli" min="0" placeholder="Jumlah" class="w-full px-4 py-3 border-2 border-red-300 rounded-lg focus:border-red-500 bg-red-50/90 font-medium shadow-sm text-base" required>
-        </div>
-       </div>
-      </div>
-     </section><!-- Tajuk Aktiviti -->
-     <section>
-      <label for="tajukAktiviti" class="block text-base font-bold text-white mb-2">📝 Tajuk Aktiviti</label> <input type="text" id="tajukAktiviti" placeholder="Masukkan tajuk aktiviti" class="w-full px-4 py-3 border-2 border-red-300 rounded-lg focus:border-red-500 bg-red-50/90 uppercase font-medium shadow-sm text-base" required>
-     </section><!-- Senarai Guru -->
-     <section class="bg-red-100/80 backdrop-blur-sm rounded-xl p-5 shadow-lg">
-      <h3 class="text-base font-bold text-red-900 mb-3 flex items-center">
-       <svg class="w-5 h-5 mr-2" fill="currentColor" viewbox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-       </svg> Nama Guru (10 orang)</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="guruContainer"></div>
-     </section><!-- Objektif Aktiviti -->
-     <section>
-      <h3 class="text-base font-bold text-white mb-3 flex items-center">
-       <svg class="w-5 h-5 mr-2 text-green-400" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-       </svg> Objektif Aktiviti</h3>
-      <div class="space-y-3">
-       <div class="flex items-start gap-2">
-        <span class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-1 shadow-md">1</span> <textarea id="objektif1" rows="2" placeholder="Objektif pertama" class="w-full px-4 py-3 border-2 border-red-300 rounded-lg focus:border-red-500 bg-red-50/90 resize-none shadow-sm text-base"></textarea>
-       </div>
-       <div class="flex items-start gap-2">
-        <span class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-1 shadow-md">2</span> <textarea id="objektif2" rows="2" placeholder="Objektif kedua" class="w-full px-4 py-3 border-2 border-red-300 rounded-lg focus:border-red-500 bg-red-50/90 resize-none shadow-sm text-base"></textarea>
-       </div>
-       <div class="flex items-start gap-2">
-        <span class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-1 shadow-md">3</span> <textarea id="objektif3" rows="2" placeholder="Objektif ketiga" class="w-full px-4 py-3 border-2 border-red-300 rounded-lg focus:border-red-500 bg-red-50/90 resize-none shadow-sm text-base"></textarea>
-       </div>
-      </div>
-     </section><!-- Sisipan Aktiviti PIKeBM -->
-     <section class="bg-amber-50/80 backdrop-blur-sm border-l-4 border-amber-500 rounded-r-xl p-5 shadow-lg">
-      <label for="pikebm" class="block text-base font-bold text-amber-900 mb-2 flex items-center">
-       <svg class="w-5 h-5 mr-2" fill="currentColor" viewbox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-       </svg> Sisipan Aktiviti PIKeBM </label> <textarea id="pikebm" rows="2" placeholder="Masukkan sisipan aktiviti PIKeBM" class="w-full px-4 py-3 border-2 border-red-300 rounded-lg focus:border-red-500 bg-red-50/90 resize-none shadow-sm text-base"></textarea>
-     </section><!-- Gambar Aktiviti -->
-     <section>
-      <h3 class="text-base font-bold text-white mb-3 flex items-center">
-       <svg class="w-5 h-5 mr-2 text-blue-400" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-       </svg> Gambar Aktiviti (4 gambar landscape)</h3>
-      <div class="grid grid-cols-2 gap-4">
-       <div class="relative">
-        <input type="file" id="gambar1" accept="image/*" class="hidden" onchange="previewImage(this, 'preview1')"> <label for="gambar1" class="block cursor-pointer">
-         <div id="preview1" class="w-full bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-50 transition overflow-hidden" style="aspect-ratio: 16/9; min-height: 180px;">
-          <div class="text-center text-gray-500">
-           <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-           </svg>
-           <p class="text-sm font-medium">Gambar 1</p>
-          </div>
-         </div></label>
-       </div>
-       <div class="relative">
-        <input type="file" id="gambar2" accept="image/*" class="hidden" onchange="previewImage(this, 'preview2')"> <label for="gambar2" class="block cursor-pointer">
-         <div id="preview2" class="w-full bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-50 transition overflow-hidden" style="aspect-ratio: 16/9; min-height: 180px;">
-          <div class="text-center text-gray-500">
-           <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-           </svg>
-           <p class="text-sm font-medium">Gambar 2</p>
-          </div>
-         </div></label>
-       </div>
-       <div class="relative">
-        <input type="file" id="gambar3" accept="image/*" class="hidden" onchange="previewImage(this, 'preview3')"> <label for="gambar3" class="block cursor-pointer">
-         <div id="preview3" class="w-full bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-50 transition overflow-hidden" style="aspect-ratio: 16/9; min-height: 180px;">
-          <div class="text-center text-gray-500">
-           <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-           </svg>
-           <p class="text-sm font-medium">Gambar 3</p>
-          </div>
-         </div></label>
-       </div>
-       <div class="relative">
-        <input type="file" id="gambar4" accept="image/*" class="hidden" onchange="previewImage(this, 'preview4')"> <label for="gambar4" class="block cursor-pointer">
-         <div id="preview4" class="w-full bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-50 transition overflow-hidden" style="aspect-ratio: 16/9; min-height: 180px;">
-          <div class="text-center text-gray-500">
-           <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-           </svg>
-           <p class="text-sm font-medium">Gambar 4</p>
-          </div>
-         </div></label>
-       </div>
-      </div>
-     </section><!-- Refleksi dan Impak -->
-     <section>
-      <label for="refleksi" class="block text-base font-bold text-white mb-2 flex items-center">
-       <svg class="w-5 h-5 mr-2 text-purple-400" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-       </svg> Refleksi dan Impak </label> <textarea id="refleksi" rows="3" placeholder="Masukkan refleksi dan impak aktiviti" class="w-full px-4 py-3 border-2 border-red-300 rounded-lg focus:border-red-500 bg-red-50/90 resize-none shadow-sm text-base"></textarea>
-     </section><!-- Ulasan Guru -->
-     <section>
-      <label for="ulasan" class="block text-base font-bold text-white mb-2 flex items-center">
-       <svg class="w-5 h-5 mr-2 text-indigo-400" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clip-rule="evenodd" />
-       </svg> Ulasan Guru </label> <textarea id="ulasan" rows="3" placeholder="Masukkan ulasan guru" class="w-full px-4 py-3 border-2 border-red-300 rounded-lg focus:border-red-500 bg-red-50/90 resize-none shadow-sm text-base"></textarea>
-     </section><!-- Signature Section -->
-     <section class="border-t-2 border-white pt-6 mt-4 pb-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-       <!-- Disediakan Oleh -->
-       <div class="text-center">
-        <p class="text-base font-bold text-white mb-3">Disediakan Oleh:</p><input type="text" id="namaMurid" placeholder="Nama Murid" class="w-full text-center bg-red-50/95 border-2 border-red-300 text-gray-800 font-bold px-4 py-2 focus:outline-none focus:border-red-500 uppercase text-base mb-2 rounded-lg shadow-sm" style="max-width: 350px; margin: 0 auto;">
-        <p class="font-bold text-white uppercase text-base mb-1" id="namaSetiausaha">SETIAUSAHA</p>
-        <p class="text-sm text-white font-semibold mb-1" id="unitSetiausaha">UNIT BERUNIFORM</p>
-       </div><!-- Disemak Oleh -->
-       <div class="text-center">
-        <p class="text-base font-bold text-white mb-3">Disemak Oleh:</p><input type="text" id="namaPenyemak" placeholder="Nama Penyemak" class="w-full text-center bg-red-50/95 border-2 border-red-300 text-gray-800 font-bold px-4 py-2 focus:outline-none focus:border-red-500 uppercase text-base mb-2 rounded-lg shadow-sm" style="max-width: 350px; margin: 0 auto;">
-        <p class="text-base text-white font-bold uppercase mb-1">Guru Penasihat / Penyelaras</p>
-        <p class="text-sm text-white font-semibold mb-1" id="unitPenyemak">UNIT BERUNIFORM</p>
-       </div>
-      </div>
-     </section><!-- Print PDF Button -->
-     <section class="text-center pt-4 pb-2">
-      <button type="button" id="printBtn" class="bg-white hover:bg-gray-100 text-red-700 font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 flex items-center gap-2 mx-auto text-base opacity-50 cursor-not-allowed" disabled>
-       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-       </svg><span>Cetak PDF</span> </button>
-      <p id="printHint" class="text-white text-sm mt-2 font-semibold">Sila isi semua maklumat wajib untuk cetak PDF</p>
-     </section>
-    </form>
-   </div><!-- Footer -->
-   <p class="text-center text-gray-500 text-sm mt-6">© 2026 - Unit Kokurikulum SKBTHO2</p>
-  </div>
-  <script>
-    const defaultConfig = {
-      nama_unit: '',
-      nama_setiausaha: 'SETIAUSAHA',
-      nama_penyemak: 'NAMA PENYEMAK'
-    };
+    .a4-container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
 
-    let config = { ...defaultConfig };
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3);
+    }
 
-    // List of teachers
-    const teachersList = [
-      "ABDUL KAHAR BIN AWANG SEMAN",
-      "AINA ATHIRAH BINTI AHMAD SENARI",
-      "AMIRAH BINTI MOHD ALWI",
-      "AMINUDDIN BIN ISMAIL",
-      "ARINAWATI BINTI MOHD YAH",
-      "AWATIF BINTI MD YUSOP",
-      "AZHAIRIN ZULAIHAN BINTI BADRUL HISHAM",
-      "AZIMA BINTI MAT ZIN @ ISMAIL",
-      "AZIZAH BINTI MOHAMMED",
-      "AZMAN BIN OTHMAN",
-      "DINITA A/P MUNIANDY",
-      "EMIL NORULHUDA BINTI AMIRUDDIN",
-      "FAIZA BINTI HASBULLAH",
-      "FAIZAH BINTI IBRAHIM",
-      "FARAWAHIDA BINTI MOHD SAFFUAN",
-      "FARIDATUL AKMAAR BINTI MAT SAID",
-      "FATIN FARHANA BINTI AMINUDDIN",
-      "HAFIZI BIN OMAR",
-      "HARISAH BINTI AWANG",
-      "HARIZ IRFAN BIN HUSSIN PAKRI",
-      "HASMAWATI BINTI OTHMAN",
-      "HAZRAH BINTI MOHAMAD",
-      "IRDINA AFIQAH BINTI ISMAIL",
-      "IRMA AZNITA BINTI KAMBALI",
-      "KANG CHIN KOAT",
-      "KASUMMA BINTI PANDAK KAMAL",
-      "MARYANI BINTI DRAMAN",
-      "MAWADDAH HUDA BINTI MOHD AFFANDI",
-      "MAZILA HAZLIN BINTI ABD MAJIT",
-      "MOHAMAD MUNIR BIN ZAINUN",
-      "MOHAMED SYAKIR BIN MD TAHIR",
-      "MOHD SHAMILULHAYAT BIN MOHD ASRI",
-      "MUHAMMAD AKASYAH SAIDON",
-      "MUHAMMAD IRFAN WAZIF BIN MOHD NIZAM",
-      "NADIAH BINTI IDRIS",
-      "NAIM AISAMUDDIN BIN ABDUL RAZAK",
-      "NAZIMATUL AMANI BINTI RAMLI",
-      "NIK HAZIMAN BIN CHE DAUD",
-      "NIK NUR LIYANA BINTI NIK MOHD FAUZI",
-      "NITHILA A/P JAKANATHAN",
-      "NOOR AZIZAH BINTI MD BAHARUDDIN",
-      "NORAIDA BINTI MUSTAPHA",
-      "NORAMANI BINTI MAT NOR",
-      "NORMA BINTI ISMAIL",
-      "NORUL HUDA BINTI JAMIN",
-      "NOUR EZIEZAH BINTI MAZMAN",
-      "NUR FATHIN BINTI ZAKI",
-      "NUR SYAFIQAH BINTI ZAHIRUDIN",
-      "NUR ZURIYATIE BINTI AZIZ",
-      "NURUL HAZIQAH BINTI RAMLI",
-      "NURUL ULYA BINTI NORDIN",
-      "PIRAKAS A/L SHANGAR",
-      "ROHAIZA BINTI RAZALI",
-      "ROSNAH BINTI JANTAN",
-      "RUBINA BINTI RAMLI",
-      "SAHARINA BINTI ABDULLAH",
-      "SITI HAWA BINTI MAT YAJID",
-      "SITI MASHITAH BINTI MOHD ASRI",
-      "SITI NORASYIKIN BINTI ABDULLAH",
-      "SITI NUR DIANA BINTI MOHAMAD NASIR",
-      "SULAIMAN BIN HASSAN",
-      "SUZILA BINTI MOHD NOR",
-      "TG IHTIFAZUDDIN BIN TG IBRAHIM",
-      "UMI NUR HANIRA BINTI ISMAIL",
-      "WAN FAIRIS BIN A. KAMAR",
-      "ZABIDI BIN MOHAMMAD",
-      "ZANIRAH BINTI A. BAKAR"
-    ];
+    @media print {
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body class="h-full overflow-auto py-4 md:py-8 px-2 md:px-4">
+  <div id="app-wrapper" class="w-full h-full">
+    <div class="a4-container shadow-2xl rounded-lg md:rounded-2xl overflow-hidden relative" style="background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);">
+      
+      <form id="reportForm" class="relative z-10 px-4 md:px-8 lg:px-12 py-8 space-y-6 max-w-4xl mx-auto">
+        <div class="text-center space-y-4">
+          <img src="https://i.imgur.com/DLy3jZn.png" alt="Logo" class="w-24 h-24 mx-auto drop-shadow-lg">
+          <div class="text-white">
+            <h1 class="text-xl md:text-3xl font-bold tracking-wider">LAPORAN AKTIVITI KOKURIKULUM</h1>
+            <h2 class="text-lg md:text-xl font-semibold opacity-90">SK BANDAR TUN HUSSEIN ONN 2</h2>
+          </div>
+          
+          <div class="flex flex-wrap justify-center gap-3 mt-4">
+            <div class="bg-white/95 rounded-full px-4 py-2 shadow-md flex items-center">
+              <label class="text-gray-800 font-bold mr-2 text-sm">Unit:</label>
+              <input type="text" id="editableUnit" placeholder="Taip Nama Unit" class="bg-transparent border-b border-red-600 uppercase text-sm font-bold w-40 focus:outline-none">
+            </div>
+            <div class="bg-white/95 rounded-full px-4 py-2 shadow-md flex items-center">
+              <label class="text-gray-800 font-bold mr-2 text-sm">Perjumpaan:</label>
+              <select id="perjumpaanKali" class="bg-transparent border-b border-red-600 font-bold text-sm focus:outline-none">
+                <option value="">-</option>
+                <script>for(let i=1;i<=12;i++) document.write(`<option value="${i}">${i}</option>`);</script>
+              </select>
+            </div>
+          </div>
+        </div>
 
-    // Generate guru input fields
-    function generateGuruFields() {
-      const container = document.getElementById('guruContainer');
-      container.innerHTML = '';
-      for (let i = 1; i <= 10; i++) {
-        const div = document.createElement('div');
-        div.className = 'flex items-center gap-1';
-        
-        // Create options for select
-        const options = '<option value="">Pilih nama guru</option>' + 
-          teachersList.map(name => `<option value="${name}">${name}</option>`).join('');
-        
-        div.innerHTML = `
-          <span class="text-red-700 font-bold text-base w-6">${i}.</span>
-          <select id="guru${i}" class="w-full px-4 py-3 border-2 border-red-200 rounded-lg focus:border-red-500 bg-red-50 text-base shadow-sm">
-            ${options}
-          </select>
-        `;
-        container.appendChild(div);
-      }
-    }
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-white">
+          <div class="space-y-2">
+            <label class="block font-bold">📅 Tarikh</label>
+            <input type="date" id="tarikh" class="w-full p-3 rounded-lg bg-white/90 text-gray-800 focus:bg-white transition-all shadow-inner" required>
+          </div>
+          <div class="space-y-2">
+            <label class="block font-bold">📍 Tempat</label>
+            <input type="text" id="tempat" placeholder="Lokasi aktiviti" class="w-full p-3 rounded-lg bg-white/90 text-gray-800 focus:bg-white transition-all shadow-inner" required>
+          </div>
+          <div class="space-y-2">
+            <label class="block font-bold">⏰ Masa</label>
+            <div class="flex gap-2">
+              <input type="text" id="masa" placeholder="Contoh: 2:30" class="flex-1 p-3 rounded-lg bg-white/90 text-gray-800 focus:bg-white shadow-inner" required>
+              <select id="masaWaktu" class="p-3 rounded-lg bg-white/90 text-gray-800 focus:bg-white shadow-inner">
+                <option value="pagi">Pagi</option>
+                <option value="petang" selected>Petang</option>
+                <option value="malam">Malam</option>
+              </select>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="block font-bold">👥 Kehadiran</label>
+            <div class="flex items-center gap-2">
+              <input type="number" id="ahliHadir" placeholder="Hadir" class="w-full p-3 rounded-lg bg-white/90 text-gray-800 focus:bg-white shadow-inner" required>
+              <span class="font-bold">/</span>
+              <input type="number" id="jumlahAhli" placeholder="Jumlah" class="w-full p-3 rounded-lg bg-white/90 text-gray-800 focus:bg-white shadow-inner" required>
+            </div>
+          </div>
+        </div>
 
-    // Image preview function
-    function previewImage(input, previewId) {
-      const preview = document.getElementById(previewId);
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const img = new Image();
-          img.onload = function() {
-            // Store original image dimensions
-            const origWidth = img.width;
-            const origHeight = img.height;
-            
-            preview.innerHTML = `
-              <div class="image-container" style="position: relative; width: 100%; height: 100%; overflow: hidden;">
-                <img src="${e.target.result}" alt="Preview" class="preview-img" 
-                     style="width: 100%; height: 100%; object-cover: cover; border-radius: 6px; display: block;"
-                     data-offset-x="0" data-offset-y="0" loading="lazy">
-                <button type="button" onclick="removeImage('${input.id}', '${previewId}')" class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 shadow-lg transition" style="position: absolute; top: 4px; right: 4px; z-index: 10;">
-                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-              </div>
-            `;
-            
-            const imgElement = preview.querySelector('.preview-img');
-            const container = preview.querySelector('.image-container');
-            
-            // Add drag functionality
-            let isDragging = false;
-            let startY = 0;
-            let currentOffsetY = 0;
-            
-            imgElement.addEventListener('mousedown', (e) => {
-              isDragging = true;
-              startY = e.clientY;
-              currentOffsetY = parseFloat(imgElement.dataset.offsetY) || 0;
-              imgElement.style.cursor = 'grabbing';
-              e.preventDefault();
-            });
-            
-            imgElement.addEventListener('touchstart', (e) => {
-              isDragging = true;
-              startY = e.touches[0].clientY;
-              currentOffsetY = parseFloat(imgElement.dataset.offsetY) || 0;
-              e.preventDefault();
-            });
-            
-            document.addEventListener('mousemove', (e) => {
-              if (!isDragging || !preview.contains(imgElement)) return;
-              
-              const deltaY = e.clientY - startY;
-              let newOffsetY = currentOffsetY + deltaY;
-              
-              // Constrain movement based on image and container height
-              const maxOffsetY = Math.max(0, img.height - container.offsetHeight);
-              newOffsetY = Math.max(-maxOffsetY, Math.min(0, newOffsetY));
-              
-              imgElement.style.transform = `translateY(${newOffsetY}px)`;
-              imgElement.dataset.offsetY = newOffsetY;
-            });
-            
-            document.addEventListener('touchmove', (e) => {
-              if (!isDragging || !preview.contains(imgElement)) return;
-              
-              const deltaY = e.touches[0].clientY - startY;
-              let newOffsetY = currentOffsetY + deltaY;
-              
-              const maxOffsetY = Math.max(0, img.height - container.offsetHeight);
-              newOffsetY = Math.max(-maxOffsetY, Math.min(0, newOffsetY));
-              
-              imgElement.style.transform = `translateY(${newOffsetY}px)`;
-              imgElement.dataset.offsetY = newOffsetY;
-            }, { passive: false });
-            
-            document.addEventListener('mouseup', () => {
-              isDragging = false;
-              imgElement.style.cursor = 'grab';
-            });
-            
-            document.addEventListener('touchend', () => {
-              isDragging = false;
-            });
-          };
-          img.src = e.target.result;
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
+        <div class="space-y-2">
+          <label class="block font-bold text-white">📝 Tajuk Aktiviti</label>
+          <input type="text" id="tajukAktiviti" class="w-full p-3 rounded-lg bg-white/90 text-gray-800 uppercase font-bold shadow-inner" required>
+        </div>
 
-    // Remove image function
-    function removeImage(inputId, previewId) {
-      const input = document.getElementById(inputId);
-      const preview = document.getElementById(previewId);
-      input.value = '';
-      const imageNum = inputId.replace('gambar', '');
-      preview.innerHTML = `
-        <div class="text-center text-gray-500">
-          <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
-          <p class="text-sm font-medium">Gambar ${imageNum}</p>
-        </div>
-      `;
-    }
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20">
+          <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" /></svg>
+            Senarai Guru (Maksimum 10)
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="guruContainer"></div>
+        </div>
 
-    // Generate PDF Preview
-    function generatePDFPreview() {
-      // Collect all form data
-      const data = {
-        unit: document.getElementById('editableUnit').value || 'UNIT BERUNIFORM',
-        perjumpaanKali: document.getElementById('perjumpaanKali').value,
-        tarikh: document.getElementById('tarikh').value,
-        tempat: document.getElementById('tempat').value,
-        masa: document.getElementById('masa').value,
-        masaWaktu: document.getElementById('masaWaktu').value,
-        ahliHadir: document.getElementById('ahliHadir').value,
-        jumlahAhli: document.getElementById('jumlahAhli').value,
-        tajukAktiviti: document.getElementById('tajukAktiviti').value,
-        guru: [],
-        objektif: [
-          document.getElementById('objektif1').value,
-          document.getElementById('objektif2').value,
-          document.getElementById('objektif3').value
-        ].filter(obj => obj.trim() !== ''),
-        pikebm: document.getElementById('pikebm').value,
-        refleksi: document.getElementById('refleksi').value,
-        ulasan: document.getElementById('ulasan').value,
-        namaMurid: document.getElementById('namaMurid').value,
-        namaSetiausaha: config.nama_setiausaha || defaultConfig.nama_setiausaha,
-        namaPenyemak: document.getElementById('namaPenyemak').value,
-        gambar: []
-      };
+        <div class="space-y-4">
+            <h3 class="text-white font-bold">🎯 Objektif Aktiviti</h3>
+            <textarea id="objektif1" placeholder="Objektif 1" class="w-full p-3 rounded-lg bg-white/90 text-gray-800 shadow-inner resize-none h-16"></textarea>
+            <textarea id="objektif2" placeholder="Objektif 2" class="w-full p-3 rounded-lg bg-white/90 text-gray-800 shadow-inner resize-none h-16"></textarea>
+        </div>
 
-      // Collect guru names
-      for (let i = 1; i <= 10; i++) {
-        const guruSelect = document.getElementById(`guru${i}`);
-        if (guruSelect && guruSelect.value !== '') {
-          data.guru.push(guruSelect.value);
-        }
-      }
+        <div class="space-y-4">
+            <h3 class="text-white font-bold">🖼️ Gambar Aktiviti (4 Gambar)</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <script>
+                    for(let i=1; i<=4; i++) {
+                        document.write(`
+                            <div class="relative group aspect-video bg-white/20 rounded-lg overflow-hidden border-2 border-dashed border-white/40 flex items-center justify-center">
+                                <input type="file" id="gambar${i}" accept="image/*" class="hidden" onchange="previewImage(this, 'preview${i}')">
+                                <label for="gambar${i}" id="preview${i}" class="cursor-pointer w-full h-full flex flex-col items-center justify-center text-white p-2">
+                                    <svg class="w-6 h-6 mb-1 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                    <span class="text-xs font-bold opacity-60">Foto ${i}</span>
+                                </label>
+                            </div>
+                        `);
+                    }
+                </script>
+            </div>
+        </div>
 
-      // Collect images
-      for (let i = 1; i <= 4; i++) {
-        const preview = document.getElementById(`preview${i}`);
-        const img = preview.querySelector('img');
-        if (img) {
-          data.gambar.push(img.src);
-        }
-      }
+        <div class="space-y-4">
+            <h3 class="text-white font-bold">💡 Refleksi & Ulasan</h3>
+            <textarea id="refleksi" placeholder="Refleksi dan Impak" class="w-full p-3 rounded-lg bg-white/90 text-gray-800 shadow-inner h-24"></textarea>
+            <textarea id="ulasan" placeholder="Ulasan Guru" class="w-full p-3 rounded-lg bg-white/90 text-gray-800 shadow-inner h-24"></textarea>
+        </div>
 
-      // Format date
-      let formattedDate = '';
-      if (data.tarikh) {
-        const dateObj = new Date(data.tarikh);
-        const day = dateObj.getDate();
-        const months = ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'];
-        const month = months[dateObj.getMonth()];
-        const year = dateObj.getFullYear();
-        formattedDate = `${day} ${month} ${year}`;
-      }
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-white/20">
+            <div class="text-center space-y-2">
+                <p class="text-white font-bold">Disediakan Oleh:</p>
+                <input type="text" id="namaMurid" placeholder="NAMA MURID" class="w-full bg-white/90 p-2 rounded text-center font-bold uppercase">
+                <p class="text-white/80 text-xs">SETIAUSAHA</p>
+            </div>
+            <div class="text-center space-y-2">
+                <p class="text-white font-bold">Disemak Oleh:</p>
+                <input type="text" id="namaPenyemak" placeholder="NAMA GURU" class="w-full bg-white/90 p-2 rounded text-center font-bold uppercase">
+                <p class="text-white/80 text-xs">GURU PENASIHAT / PENYELARAS</p>
+            </div>
+        </div>
 
-      // Format time with waktu selection
-      let formattedTime = '';
-      if (data.masa) {
-        formattedTime = data.masa;
-        
-        // Add waktu if selected
-        if (data.masaWaktu) {
-          formattedTime += ` (${data.masaWaktu})`;
-        }
-      }
+        <div class="text-center pt-6 no-print">
+          <button type="button" id="printBtn" class="bg-white text-red-700 px-10 py-4 rounded-full font-bold shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3 mx-auto">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+            CETAK LAPORAN (PDF)
+          </button>
+          <p id="printHint" class="text-white/60 text-xs mt-3">Pastikan maklumat utama diisi sebelum mencetak</p>
+        </div>
+      </form>
+    </div>
+    <p class="text-center text-gray-500 text-xs mt-8 mb-4">© 2026 - Unit Kokurikulum SKBTHO2</p>
+  </div>
 
-      // Create PDF window
-      const pdfWindow = window.open('', '_blank');
-      pdfWindow.document.write(`
-        <!DOCTYPE html>
-        <html lang="ms">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Laporan Aktiviti Kokurikulum - ${data.tajukAktiviti}</title>
-          <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-          <style>
-            * {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
-            }
-            body {
-              background: white;
-              padding: 0;
-              margin: 0;
-              font-size: 8pt;
-              line-height: 1.1;
-              color: #000;
-              position: relative;
-              width: 210mm;
-              height: 297mm;
-              overflow: hidden;
-            }
-            body::before {
-              content: '';
-              position: fixed;
-              top: 0;
-              left: 0;
-              width: 210mm;
-              height: 297mm;
-              background: url('https://i.imgur.com/j5Ojna9.png') no-repeat center center;
-              background-size: 210mm 297mm;
-              z-index: -1;
-            }
-            .content-wrapper {
-              position: relative;
-              z-index: 1;
-              padding: 6mm 10mm 4mm 10mm;
-              width: 210mm;
-              height: 297mm;
-              overflow: hidden;
-              display: flex;
-              flex-direction: column;
-            }
-            .header {
-              text-align: center;
-              margin-bottom: 2px;
-              padding-bottom: 1px;
-              border-bottom: 2px solid rgba(255,255,255,0.5);
-              flex-shrink: 0;
-            }
-            .logo {
-              width: 80px;
-              height: 80px;
-              margin: 0 auto 1px;
-              object-fit: contain;
-            }
-            h1 {
-              font-size: 9pt;
-              font-weight: 700;
-              color: #FFFFFF;
-              margin-bottom: 0px;
-              text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            h2 {
-              font-size: 7.5pt;
-              font-weight: 700;
-              color: #FFFFFF;
-              margin-bottom: 2px;
-              text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .unit-badge {
-              display: inline-block;
-              background: white;
-              color: #DC2626;
-              padding: 2px 12px;
-              border-radius: 20px;
-              font-weight: 700;
-              font-size: 7pt;
-            }
-            .section {
-              margin-bottom: 1px;
-              page-break-inside: avoid;
-              flex-shrink: 0;
-            }
-            .section-title {
-              font-size: 6.5pt;
-              font-weight: 700;
-              color: #FFFFFF;
-              margin-bottom: 1px;
-              padding-bottom: 0.5px;
-              border-bottom: 2px solid rgba(255,255,255,0.5);
-              text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .info-grid {
-              display: grid;
-              grid-template-columns: 1fr 1fr;
-              gap: 1px;
-              margin-bottom: 1px;
-            }
-            .info-item {
-              background: white;
-              padding: 2px 4px;
-              border-radius: 4px;
-              border-left: 2px solid #DC2626;
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .info-label {
-              font-weight: 700;
-              color: #000;
-              font-size: 6pt;
-              margin-bottom: 0px;
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .info-value {
-              font-size: 6pt;
-              color: #000;
-              font-weight: 600;
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .guru-list {
-              background: white;
-              padding: 2px 4px;
-              border-radius: 4px;
-              margin-bottom: 1px;
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .guru-list ol {
-              margin-left: 14px;
-              column-count: 2;
-              column-gap: 4px;
-            }
-            .guru-list li {
-              margin-bottom: 0.5px;
-              font-size: 6pt;
-              break-inside: avoid;
-              color: #000;
-              font-weight: 600;
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .objektif-list {
-              margin-left: 0;
-              list-style: none;
-            }
-            .objektif-list li {
-              background: white;
-              padding: 2px 5px;
-              margin-bottom: 1px;
-              border-radius: 4px;
-              border-left: 2px solid #10B981;
-              font-size: 6.5pt;
-              color: #000;
-              font-weight: 600;
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .objektif-list li:before {
-              content: "✓ ";
-              color: #10B981;
-              font-weight: 700;
-              margin-right: 4px;
-            }
-            .pikebm-box {
-              background: white;
-              padding: 4px 6px;
-              border-radius: 6px;
-              border-left: 3px solid #F59E0B;
-              margin-bottom: 4px;
-              font-size: 7pt;
-              color: #000;
-              font-weight: 600;
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .text-content {
-              background: white;
-              padding: 4px 6px;
-              border-radius: 6px;
-              border-left: 3px solid #DC2626;
-              font-size: 7pt;
-              line-height: 1.3;
-              min-height: 25px;
-              color: #000;
-              font-weight: 600;
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .gambar-grid {
-              display: grid;
-              grid-template-columns: 1fr 1fr;
-              gap: 4px;
-              margin-top: 3px;
-            }
-            .gambar-item {
-              text-align: center;
-            }
-            .gambar-item img {
-              width: 100%;
-              height: auto;
-              max-height: 90px;
-              object-fit: contain;
-              border-radius: 4px;
-              border: 2px solid rgba(255,255,255,0.5);
-              background: transparent;
-            }
-            .gambar-caption {
-              font-size: 6pt;
-              color: #FFFFFF;
-              margin-top: 1px;
-              font-weight: 600;
-              text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .signature-section {
-              display: grid;
-              grid-template-columns: 1fr 1fr;
-              gap: 10px;
-              margin-top: 6px;
-              page-break-inside: avoid;
-            }
-            .signature-box {
-              text-align: center;
-              padding: 4px;
-              background: transparent;
-              border-radius: 6px;
-            }
-            .signature-title {
-              font-weight: 700;
-              font-size: 7pt;
-              margin-bottom: 8px;
-              color: #FFFFFF;
-              text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .signature-line {
-              border-top: 2px solid white;
-              margin: 6px auto 4px;
-              width: 110px;
-            }
-            .signature-name {
-              font-weight: 700;
-              font-size: 7pt;
-              margin-top: 4px;
-              color: #FFFFFF;
-              text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .signature-role {
-              font-size: 6pt;
-              color: #FFFFFF;
-              margin-top: 1px;
-              font-weight: 600;
-              text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .print-buttons {
-              text-align: center;
-              margin: 20px 0;
-              page-break-inside: avoid;
-            }
-            .btn {
-              display: inline-block;
-              padding: 10px 25px;
-              margin: 0 8px;
-              border-radius: 6px;
-              font-weight: 700;
-              font-size: 10pt;
-              cursor: pointer;
-              border: none;
-              transition: all 0.3s;
-            }
-            .btn-print {
-              background: #DC2626;
-              color: white;
-            }
-            .btn-print:hover {
-              background: #991B1B;
-            }
-            .btn-close {
-              background: #6B7280;
-              color: white;
-            }
-            .btn-close:hover {
-              background: #4B5563;
-            }
-            @media print {
-              @page {
-                size: A4 portrait;
-                margin: 0;
-              }
-              body {
-                padding: 0;
-                margin: 0;
-                width: 210mm;
-                height: 297mm;
-              }
-              body::before {
-                position: absolute;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-              }
-              .content-wrapper {
-                padding: 15mm 20mm;
-              }
-              .print-buttons {
-                display: none;
-              }
-              .section {
-                page-break-inside: avoid;
-              }
-            }
-          </style>
-        </head>
-        <body>
-          <div class="content-wrapper">
-          <!-- Header -->
-          <div class="header">
-            <img src="https://i.imgur.com/DLy3jZn.png" alt="Logo" class="logo">
-            <h1>LAPORAN AKTIVITI KOKURIKULUM</h1>
-            <h2>SK BANDAR TUN HUSSEIN ONN 2</h2>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 8px; position: relative; margin-top: 4px;">
-              <div class="unit-badge" style="text-align: center;">UNIT: ${data.unit}</div>
-              ${data.perjumpaanKali ? `<div class="unit-badge" style="position: absolute; right: 0;">Perjumpaan kali ke-${data.perjumpaanKali}</div>` : ''}
-            </div>
-          </div>
+  <script>
+    // Data Guru (Senarai diringkaskan, sila letak senarai penuh anda di sini)
+    const teachersList = ["ABDUL KAHAR BIN AWANG SEMAN", "AINA ATHIRAH BINTI AHMAD SENARI", "AMIRAH BINTI MOHD ALWI"]; 
 
+    function generateGuruFields() {
+      const container = document.getElementById('guruContainer');
+      for (let i = 1; i <= 10; i++) {
+        const div = document.createElement('div');
+        div.className = 'flex items-center gap-2';
+        div.innerHTML = `
+          <span class="text-white/80 font-bold text-xs">${i}.</span>
+          <select id="guru${i}" class="w-full p-2 rounded bg-white/90 text-xs focus:bg-white focus:outline-none">
+            <option value="">-- Pilih Guru --</option>
+            ${teachersList.map(t => `<option value="${t}">${t}</option>`).join('')}
+          </select>`;
+        container.appendChild(div);
+      }
+    }
 
+    function previewImage(input, previewId) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          document.getElementById(previewId).innerHTML = `<img src="${e.target.result}" class="preview-img">`;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
 
-          <!-- Maklumat Aktiviti -->
-          <div class="section">
-            <div class="section-title">MAKLUMAT AKTIVITI</div>
-            <div class="info-grid">
-              <div class="info-item">
-                <div class="info-label">Tarikh</div>
-                <div class="info-value">${formattedDate}</div>
-              </div>
-              <div class="info-item">
-                <div class="info-label">Tempat</div>
-                <div class="info-value">${data.tempat}</div>
-              </div>
-              <div class="info-item">
-                <div class="info-label">Masa</div>
-                <div class="info-value">${formattedTime}</div>
-              </div>
-              <div class="info-item">
-                <div class="info-label">Kehadiran</div>
-                <div class="info-value">${data.ahliHadir} / ${data.jumlahAhli} orang</div>
-              </div>
-            </div>
-          </div>
+    function generatePDFPreview() {
+      const data = {
+        unit: document.getElementById('editableUnit').value || 'UNIT BERUNIFORM',
+        perjumpaanKali: document.getElementById('perjumpaanKali').value,
+        tarikh: document.getElementById('tarikh').value,
+        tempat: document.getElementById('tempat').value,
+        masa: document.getElementById('masa').value + ' ' + document.getElementById('masaWaktu').value,
+        hadir: document.getElementById('ahliHadir').value + ' / ' + document.getElementById('jumlahAhli').value,
+        tajuk: document.getElementById('tajukAktiviti').value || '-',
+        guru: Array.from({length:10}, (_,i) => document.getElementById(`guru${i+1}`).value).filter(v => v),
+        objektif: [document.getElementById('objektif1').value, document.getElementById('objektif2').value].filter(v => v),
+        refleksi: document.getElementById('refleksi').value,
+        ulasan: document.getElementById('ulasan').value,
+        murid: document.getElementById('namaMurid').value,
+        penyemak: document.getElementById('namaPenyemak').value,
+        gambar: Array.from({length:4}, (_,i) => {
+            const img = document.getElementById(`preview${i+1}`).querySelector('img');
+            return img ? img.src : null;
+        }).filter(v => v)
+      };
 
-          <!-- Tajuk Aktiviti -->
-          <div class="section">
-            <div class="section-title">TAJUK AKTIVITI</div>
-            <div class="info-item" style="font-weight: 700; font-size: 7pt;">
-              ${data.tajukAktiviti}
-            </div>
-          </div>
+      const pdfWin = window.open('', '_blank');
+      pdfWin.document.write(`
+        <html>
+        <head>
+          <title>Laporan - ${data.tajuk}</title>
+          <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+          <style>
+            @page { size: A4 portrait; margin: 0; }
+            body { 
+              margin: 0; padding: 0; font-family: 'Poppins', sans-serif;
+              background: url('https://i.imgur.com/j5Ojna9.png') no-repeat center center;
+              background-size: cover; width: 210mm; height: 297mm;
+              -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+            }
+            .content { padding: 15mm 20mm; color: white; height: 100%; box-sizing: border-box; }
+            .header-img { width: 70px; display: block; margin: 0 auto 10px; }
+            .title { text-align: center; margin-bottom: 20px; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); }
+            .info-box { background: rgba(255,255,255,0.95); color: black; border-radius: 8px; padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+            .label { font-weight: 700; font-size: 8pt; color: #DC2626; text-transform: uppercase; }
+            .val { font-weight: 600; font-size: 9pt; }
+            .section-title { font-weight: 700; border-bottom: 2px solid rgba(255,255,255,0.3); margin: 15px 0 8px; font-size: 10pt; }
+            .white-card { background: rgba(255,255,255,0.95); color: black; padding: 10px; border-radius: 6px; font-size: 8.5pt; font-weight: 600; }
+            .guru-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+            .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+            .img-item { background: white; padding: 3px; border-radius: 4px; text-align: center; }
+            .img-item img { width: 100%; height: 90px; object-fit: cover; display: block; }
+            .img-cap { font-size: 7pt; color: black; font-weight: bold; margin-top: 2px; }
+            .footer-sig { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; text-align: center; }
+            .sig-line { border-top: 1.5px solid white; margin-top: 40px; padding-top: 5px; font-weight: 700; font-size: 9pt; }
+          </style>
+        </head>
+        <body onload="window.print()">
+          <div class="content">
+            <img src="https://i.imgur.com/DLy3jZn.png" class="header-img">
+            <div class="title">
+                <div style="font-size: 14pt; font-weight: 700;">LAPORAN AKTIVITI KOKURIKULUM</div>
+                <div style="font-size: 10pt;">SK BANDAR TUN HUSSEIN ONN 2</div>
+                <div style="margin-top:5px;"><span style="background:white; color:red; padding:2px 10px; border-radius:10px; font-weight:700; font-size:8pt;">UNIT: ${data.unit} (KALI KE-${data.perjumpaanKali})</span></div>
+            </div>
 
-          <!-- Senarai Guru -->
-          ${data.guru.length > 0 ? `
-          <div class="section">
-            <div class="section-title">SENARAI GURU</div>
-            <div class="guru-list">
-              <ol>
-                ${data.guru.map(guru => `<li>${guru}</li>`).join('')}
-              </ol>
-            </div>
-          </div>
-          ` : ''}
+            <div class="info-box">
+                <div><div class="label">Tarikh</div><div class="val">${data.tarikh}</div></div>
+                <div><div class="label">Tempat</div><div class="val">${data.tempat}</div></div>
+                <div><div class="label">Masa</div><div class="val">${data.masa}</div></div>
+                <div><div class="label">Kehadiran</div><div class="val">${data.hadir} Orang</div></div>
+            </div>
 
-          <!-- Objektif -->
-          ${data.objektif.length > 0 ? `
-          <div class="section">
-            <div class="section-title">OBJEKTIF AKTIVITI</div>
-            <ol class="objektif-list">
-              ${data.objektif.map(obj => `<li>${obj}</li>`).join('')}
-            </ol>
-          </div>
-          ` : ''}
+            <div class="section-title">TAJUK AKTIVITI</div>
+            <div class="white-card" style="text-transform: uppercase; color: red;">${data.tajuk}</div>
 
-          <!-- PIKeBM -->
-          ${data.pikebm ? `
-          <div class="section">
-            <div class="section-title">SISIPAN AKTIVITI PIKeBM</div>
-            <div class="pikebm-box">
-              ${data.pikebm}
-            </div>
-          </div>
-          ` : ''}
+            <div class="section-title">SENARAI GURU</div>
+            <div class="white-card">
+                <div class="guru-grid">
+                    ${data.guru.map((g,i) => `<div>${i+1}. ${g}</div>`).join('')}
+                </div>
+            </div>
 
-          <!-- Gambar -->
-          ${data.gambar.length > 0 ? `
-          <div class="section">
-            <div class="section-title">GAMBAR AKTIVITI</div>
-            <div class="gambar-grid">
-              ${data.gambar.map((img, index) => `
-                <div class="gambar-item">
-                  <img src="${img}" alt="Gambar ${index + 1}">
-                  <div class="gambar-caption">Gambar ${index + 1}</div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-          ` : ''}
+            <div class="section-title">GAMBAR AKTIVITI</div>
+            <div class="img-grid">
+                ${data.gambar.map((src,i) => `
+                    <div class="img-item">
+                        <img src="${src}">
+                        <div class="img-cap">GAMBAR ${i+1}</div>
+                    </div>
+                `).join('')}
+            </div>
 
-          <!-- Refleksi -->
-          ${data.refleksi ? `
-          <div class="section">
-            <div class="section-title">REFLEKSI DAN IMPAK</div>
-            <div class="text-content">
-              ${data.refleksi}
-            </div>
-          </div>
-          ` : ''}
+            <div class="section-title">REFLEKSI & ULASAN</div>
+            <div class="white-card" style="margin-bottom:10px;">${data.refleksi || '-'}</div>
+            <div class="white-card">${data.ulasan || '-'}</div>
 
-          <!-- Ulasan -->
-          ${data.ulasan ? `
-          <div class="section">
-            <div class="section-title">ULASAN GURU</div>
-            <div class="text-content">
-              ${data.ulasan}
-            </div>
-          </div>
-          ` : ''}
+            <div class="footer-sig">
+                <div>
+                    <div style="font-size: 8pt;">Disediakan Oleh:</div>
+                    <div class="sig-line">${data.murid || '........................................'}</div>
+                    <div style="font-size: 7pt; opacity: 0.8;">SETIAUSAHA UNIT</div>
+                </div>
+                <div>
+                    <div style="font-size: 8pt;">Disemak Oleh:</div>
+                    <div class="sig-line">${data.penyemak || '........................................'}</div>
+                    <div style="font-size: 7pt; opacity: 0.8;">GURU PENASIHAT</div>
+                </div>
+            </div>
+          </div>
+        </body>
+        </html>
+      `);
+      pdfWin.document.close();
+    }
 
-          <!-- Signature -->
-          <div class="signature-section">
-            <div class="signature-box">
-              <div class="signature-title">Disediakan Oleh:</div>
-              <div class="signature-line"></div>
-              <div class="signature-name">${data.namaMurid || '___________________'}</div>
-              <div class="signature-role">${data.namaSetiausaha}</div>
-              <div class="signature-role">${data.unit}</div>
-            </div>
-            <div class="signature-box">
-              <div class="signature-title">Disemak Oleh:</div>
-              <div class="signature-line"></div>
-              <div class="signature-name">${data.namaPenyemak || '___________________'}</div>
-              <div class="signature-role">GURU PENASIHAT / PENYELARAS</div>
-              <div class="signature-role">${data.unit}</div>
-            </div>
-          </div>
-
-          </div>
-        </body>
-        </html>
-      `);
-      pdfWindow.document.close();
-    }
-
-    // Auto uppercase for specific fields
-    function setupAutoUppercase() {
-      const uppercaseFields = ['tajukAktiviti', 'editableUnit', 'namaMurid', 'namaPenyemak'];
-      uppercaseFields.forEach(fieldId => {
-        const field = document.getElementById(fieldId);
-        if (field) {
-          field.addEventListener('input', function() {
-            this.value = this.value.toUpperCase();
-          });
-        }
-      });
-      
-      // Title case for tempat field (first letter uppercase, rest lowercase)
-      const tempatField = document.getElementById('tempat');
-      if (tempatField) {
-        tempatField.addEventListener('input', function() {
-          const words = this.value.split(' ');
-          const titleCased = words.map(word => {
-            if (word.length === 0) return word;
-            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-          }).join(' ');
-          this.value = titleCased;
-        });
-      }
-      
-      // Sentence case for refleksi, pikebm, ulasan, and objektif fields (first letter only)
-      const sentenceCaseFields = ['refleksi', 'pikebm', 'ulasan', 'objektif1', 'objektif2', 'objektif3'];
-      sentenceCaseFields.forEach(fieldId => {
-        const field = document.getElementById(fieldId);
-        if (field) {
-          field.addEventListener('input', function() {
-            const cursorPosition = this.selectionStart;
-            const text = this.value;
-            if (text.length > 0) {
-              const sentenceCased = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-              this.value = sentenceCased;
-              this.setSelectionRange(cursorPosition, cursorPosition);
-            }
-          });
-        }
-      });
-      
-      // Sync editable unit field with UI only
-      const editableUnit = document.getElementById('editableUnit');
-      if (editableUnit) {
-        editableUnit.addEventListener('input', function() {
-          const unitName = this.value.toUpperCase();
-          document.getElementById('unitSetiausaha').textContent = unitName;
-          document.getElementById('unitPenyemak').textContent = unitName;
-        });
-      }
-    }
-
-    // Update UI based on config
-    async function onConfigChange(cfg) {
-      config = { ...defaultConfig, ...cfg };
-      
-      const unitName = (config.nama_unit || defaultConfig.nama_unit).toUpperCase();
-      const setiausahaName = (config.nama_setiausaha || defaultConfig.nama_setiausaha).toUpperCase();
-      const penyemakName = (config.nama_penyemak || defaultConfig.nama_penyemak).toUpperCase();
-      
-      const editableUnit = document.getElementById('editableUnit');
-      if (editableUnit) {
-        editableUnit.value = unitName;
-      }
-      document.getElementById('namaSetiausaha').textContent = setiausahaName;
-      document.getElementById('unitSetiausaha').textContent = unitName;
-      document.getElementById('unitPenyemak').textContent = unitName;
-      
-      const namaPenyemakInput = document.getElementById('namaPenyemak');
-      if (namaPenyemakInput) {
-        namaPenyemakInput.placeholder = penyemakName;
-      }
-    }
-
-    // Map to capabilities
-    function mapToCapabilities(cfg) {
-      return {
-        recolorables: [],
-        borderables: [],
-        fontEditable: undefined,
-        fontSizeable: undefined
-      };
-    }
-
-    // Map to edit panel values
-    function mapToEditPanelValues(cfg) {
-      return new Map([
-        ['nama_unit', cfg.nama_unit || defaultConfig.nama_unit],
-        ['nama_setiausaha', cfg.nama_setiausaha || defaultConfig.nama_setiausaha],
-        ['nama_penyemak', cfg.nama_penyemak || defaultConfig.nama_penyemak]
-      ]);
-    }
-
-    // Initialize
-    async function init() {
-      generateGuruFields();
-      setupAutoUppercase();
-
-      // Prevent form submission navigation
-      document.getElementById('reportForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-      });
-
-      // Print PDF functionality
-      document.getElementById('printBtn').addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        // Generate PDF preview
-        generatePDFPreview();
-      });
-
-      // Validate form and enable/disable print button
-      function validateForm() {
-        const tarikh = document.getElementById('tarikh').value;
-        const tempat = document.getElementById('tempat').value;
-        const masa = document.getElementById('masa').value;
-        const ahliHadir = document.getElementById('ahliHadir').value;
-        const jumlahAhli = document.getElementById('jumlahAhli').value;
-        const tajukAktiviti = document.getElementById('tajukAktiviti').value;
-        
-        // Check if at least one guru is selected
-        let guruSelected = false;
-        for (let i = 1; i <= 10; i++) {
-          const guruSelect = document.getElementById(`guru${i}`);
-          if (guruSelect && guruSelect.value !== '') {
-            guruSelected = true;
-            break;
-          }
-        }
-        
-        const printBtn = document.getElementById('printBtn');
-        const printHint = document.getElementById('printHint');
-        
-        // Enable button if all required fields are filled and at least one guru is selected
-        if (tarikh && tempat && masa && ahliHadir && jumlahAhli && tajukAktiviti && guruSelected) {
-          printBtn.disabled = false;
-          printBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-          printBtn.classList.add('hover:scale-105');
-          printHint.textContent = '✅ Borang lengkap! Klik untuk cetak PDF';
-          printHint.classList.add('text-green-300');
-          printHint.classList.remove('text-white');
-        } else {
-          printBtn.disabled = true;
-          printBtn.classList.add('opacity-50', 'cursor-not-allowed');
-          printBtn.classList.remove('hover:scale-105');
-          printHint.textContent = 'Sila isi semua maklumat wajib untuk cetak PDF';
-          printHint.classList.remove('text-green-300');
-          printHint.classList.add('text-white');
-        }
-      }
-      
-      // Add event listeners to all form fields
-      const requiredFields = ['tarikh', 'tempat', 'masa', 'ahliHadir', 'jumlahAhli', 'tajukAktiviti'];
-      requiredFields.forEach(fieldId => {
-        const field = document.getElementById(fieldId);
-        if (field) {
-          field.addEventListener('input', validateForm);
-          field.addEventListener('change', validateForm);
-        }
-      });
-      
-      // Add event listeners to guru dropdowns
-      for (let i = 1; i <= 10; i++) {
-        const guruSelect = document.getElementById(`guru${i}`);
-        if (guruSelect) {
-          guruSelect.addEventListener('change', validateForm);
-        }
-      }
-      
-      // Initial validation check
-      validateForm();
-
-      // Initialize Element SDK
-      if (window.elementSdk) {
-        window.elementSdk.init({
-          defaultConfig,
-          onConfigChange,
-          mapToCapabilities,
-          mapToEditPanelValues
-        });
-      } else {
-        onConfigChange(defaultConfig);
-      }
-    }
-
-    init();
-  </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f36f3e8e4f835be',t:'MTc3NzM4ODU5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    document.getElementById('printBtn').onclick = generatePDFPreview;
+    window.onload = generateGuruFields;
+  </script>
+</body>
 </html>
