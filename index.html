@@ -9,28 +9,10 @@
   <style>
     * { font-family: 'Poppins', sans-serif; }
     body { background: #F5E6D3; margin: 0; padding: 0; }
-    
-    .preview-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover !important; 
-      border-radius: 8px;
-    }
-
-    .a4-container {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    input:focus, textarea:focus, select:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3);
-    }
-
-    @media print {
-      .no-print { display: none !important; }
-    }
+    .preview-img { width: 100%; height: 100%; object-fit: cover !important; border-radius: 8px; }
+    .a4-container { width: 100%; max-width: 900px; margin: 0 auto; }
+    input:focus, textarea:focus, select:focus { outline: none; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3); }
+    @media print { .no-print { display: none !important; } }
   </style>
 </head>
 <body class="py-4 md:py-8 px-2 md:px-4">
@@ -42,16 +24,16 @@
         <div class="text-center space-y-4">
           <img src="https://i.imgur.com/DLy3jZn.png" alt="Logo" class="w-auto h-24 md:h-32 mx-auto drop-shadow-lg mb-2">
           <div class="text-white">
-            <h1 class="text-xl md:text-3xl font-bold tracking-wider">LAPORAN AKTIVITI KOKURIKULUM</h1>
-            <h2 class="text-md md:text-xl font-semibold opacity-90 uppercase">SK Bandar Tun Hussein Onn 2</h2>
+            <h1 class="text-xl md:text-3xl font-bold tracking-wider uppercase">Laporan Aktiviti Kokurikulum</h1>
+            <h2 class="text-md md:text-xl font-semibold opacity-90">SK BANDAR TUN HUSSEIN ONN 2</h2>
           </div>
           
           <div class="flex flex-col sm:flex-row justify-center items-center gap-3 mt-4">
-            <div class="w-full sm:w-auto bg-white/95 rounded-full px-4 py-2 shadow-md flex items-center">
+            <div class="w-full sm:w-auto bg-white/95 rounded-full px-4 py-2 flex items-center shadow-md">
               <label class="text-gray-800 font-bold mr-2 text-xs">Unit:</label>
               <input type="text" id="editableUnit" placeholder="Nama Unit" class="bg-transparent border-b border-red-600 uppercase text-sm font-bold w-full sm:w-40 focus:outline-none">
             </div>
-            <div class="w-full sm:w-auto bg-white/95 rounded-full px-4 py-2 shadow-md flex items-center">
+            <div class="w-full sm:w-auto bg-white/95 rounded-full px-4 py-2 flex items-center shadow-md">
               <label class="text-gray-800 font-bold mr-2 text-xs">Kali Ke:</label>
               <select id="perjumpaanKali" class="bg-transparent border-b border-red-600 font-bold text-sm focus:outline-none w-full sm:w-auto">
                 <option value="">-</option>
@@ -64,82 +46,94 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-white">
           <div class="space-y-1">
             <label class="block font-bold text-xs opacity-80">📅 Tarikh</label>
-            <input type="date" id="tarikh" class="w-full p-3 rounded-xl bg-white text-gray-800 shadow-inner" required>
+            <input type="date" id="tarikh" class="w-full p-3 rounded-xl bg-white text-gray-800" required>
           </div>
           <div class="space-y-1">
             <label class="block font-bold text-xs opacity-80">📍 Tempat</label>
-            <input type="text" id="tempat" placeholder="Lokasi" class="w-full p-3 rounded-xl bg-white text-gray-800 shadow-inner" required>
+            <input type="text" id="tempat" placeholder="Lokasi" class="w-full p-3 rounded-xl bg-white text-gray-800" required>
           </div>
           <div class="space-y-1">
             <label class="block font-bold text-xs opacity-80">⏰ Masa</label>
             <div class="flex gap-2">
-              <input type="text" id="masa" placeholder="Contoh: 2:00-4.00" class="flex-1 p-3 rounded-xl bg-white text-gray-800 shadow-inner" required>
-              <select id="masaWaktu" class="p-3 rounded-xl bg-white text-gray-800 shadow-inner">
-                <option value="pagi">Pagi</option>
-                <option value="petang" selected>Petang</option>
-                <option value="malam">Malam</option>
+              <input type="text" id="masa" placeholder="Cth: 2:30" class="flex-1 p-3 rounded-xl bg-white text-gray-800" required>
+              <select id="masaWaktu" class="p-3 rounded-xl bg-white text-gray-800 font-bold">
+                <option value="AM">AM</option>
+                <option value="PM" selected>PM</option>
               </select>
             </div>
           </div>
           <div class="space-y-1">
             <label class="block font-bold text-xs opacity-80">👥 Kehadiran</label>
             <div class="flex items-center gap-2">
-              <input type="number" id="ahliHadir" placeholder="Hadir" class="w-full p-3 rounded-xl bg-white text-gray-800 text-center shadow-inner" required>
+              <input type="number" id="ahliHadir" placeholder="Hadir" class="w-full p-3 rounded-xl bg-white text-gray-800 text-center" required>
               <span class="font-bold">/</span>
-              <input type="number" id="jumlahAhli" placeholder="Jumlah" class="w-full p-3 rounded-xl bg-white text-gray-800 text-center shadow-inner" required>
+              <input type="number" id="jumlahAhli" placeholder="Jumlah" class="w-full p-3 rounded-xl bg-white text-gray-800 text-center" required>
             </div>
           </div>
         </div>
 
         <div class="space-y-1">
           <label class="block font-bold text-white text-xs opacity-80">📝 Tajuk Aktiviti</label>
-          <input type="text" id="tajukAktiviti" class="w-full p-4 rounded-xl bg-white text-red-700 uppercase font-black shadow-lg" required>
+          <input type="text" id="tajukAktiviti" class="w-full p-4 rounded-xl bg-white text-red-700 uppercase font-black" required>
         </div>
 
         <div class="bg-black/20 backdrop-blur-md rounded-2xl p-5 border border-white/10">
-          <h3 class="text-white font-bold mb-4 flex items-center gap-2 text-sm uppercase tracking-widest">👥 Senarai Guru</h3>
+          <h3 class="text-white font-bold mb-4 text-sm uppercase tracking-widest">👥 Senarai Guru</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="guruContainer"></div>
         </div>
 
+        <div class="bg-yellow-500/10 backdrop-blur-md rounded-2xl p-5 border border-yellow-500/30">
+          <h3 class="text-yellow-400 font-bold mb-3 text-sm uppercase tracking-widest flex items-center gap-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3 1h10v1H5V6zm0 3h10v1H5V9zm0 3h7v1H5v-1z"/></svg>
+            Sisipan Aktiviti PIKeBM
+          </h3>
+          <textarea id="pikebm" placeholder="Taip pengisian aktiviti PIKeBM di sini..." class="w-full p-4 rounded-xl bg-white text-gray-800 shadow-lg h-24 resize-none font-medium"></textarea>
+        </div>
+
         <div class="space-y-3">
-            <h3 class="text-white font-bold text-xs uppercase opacity-80">🖼️ Gambar Aktiviti (4 Gambar)</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <script>
-                    for(let i=1; i<=4; i++) {
-                        // Pakai aspect-[3/4] supaya kotak gambar jadi TINGGI
-                        document.write(`
-                            <div class="relative aspect-[3/4] bg-white/20 rounded-xl overflow-hidden border-2 border-dashed border-white/40 flex items-center justify-center">
-                                <input type="file" id="gambar${i}" accept="image/*" class="hidden" onchange="previewImage(this, 'preview${i}')">
-                                <label for="gambar${i}" id="preview${i}" class="cursor-pointer w-full h-full flex flex-col items-center justify-center text-white p-2">
-                                    <svg class="w-6 h-6 mb-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
-                                    <span class="text-[10px] font-bold opacity-60">Foto ${i}</span>
-                                </label>
-                            </div>
-                        `);
-                    }
-                </script>
-            </div>
+          <h3 class="text-white font-bold text-xs uppercase opacity-80">🖼️ Gambar Aktiviti (4 Gambar)</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <script>
+              for(let i=1; i<=4; i++) {
+                document.write(`
+                  <div class="relative aspect-[3/4] bg-white/20 rounded-xl overflow-hidden border-2 border-dashed border-white/40 flex items-center justify-center">
+                    <input type="file" id="gambar${i}" accept="image/*" class="hidden" onchange="previewImage(this, 'preview${i}')">
+                    <label for="gambar${i}" id="preview${i}" class="cursor-pointer w-full h-full flex flex-col items-center justify-center text-white p-2">
+                      <svg class="w-6 h-6 mb-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
+                      <span class="text-[10px] font-bold opacity-60">Foto ${i}</span>
+                    </label>
+                  </div>
+                `);
+              }
+            </script>
+          </div>
         </div>
 
-        <div class="space-y-4">
-            <textarea id="refleksi" placeholder="Refleksi dan Impak" class="w-full p-4 rounded-xl bg-white text-gray-800 shadow-lg h-24 resize-none"></textarea>
-            <textarea id="ulasan" placeholder="Ulasan Guru" class="w-full p-4 rounded-xl bg-white text-gray-800 shadow-lg h-24 resize-none"></textarea>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-1">
+            <label class="block font-bold text-white text-xs opacity-80 uppercase">💡 Refleksi & Impak</label>
+            <textarea id="refleksi" class="w-full p-4 rounded-xl bg-white text-gray-800 h-28 resize-none shadow-lg"></textarea>
+          </div>
+          <div class="space-y-1">
+            <label class="block font-bold text-white text-xs opacity-80 uppercase">✍️ Ulasan Guru</label>
+            <textarea id="ulasan" class="w-full p-4 rounded-xl bg-white text-gray-800 h-28 resize-none shadow-lg"></textarea>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-white/20">
-            <div class="text-center space-y-2">
-                <p class="text-white font-bold text-xs uppercase">Disediakan Oleh:</p>
-                <input type="text" id="namaMurid" placeholder="NAMA SETIAUSAHA" class="w-full bg-white p-3 rounded-xl text-center font-bold uppercase text-red-700 shadow-md">
-            </div>
-            <div class="text-center space-y-2">
-                <p class="text-white font-bold text-xs uppercase">Disemak Oleh:</p>
-                <input type="text" id="namaPenyemak" placeholder="NAMA GURU PENASIHAT" class="w-full bg-white p-3 rounded-xl text-center font-bold uppercase text-red-700 shadow-md">
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-white/20">
+          <div class="text-center space-y-2">
+            <p class="text-white font-bold text-xs uppercase">Disediakan Oleh:</p>
+            <input type="text" id="namaMurid" placeholder="NAMA SETIAUSAHA" class="w-full bg-white p-3 rounded-xl text-center font-bold uppercase text-red-700 shadow-md">
+          </div>
+          <div class="text-center space-y-2">
+            <p class="text-white font-bold text-xs uppercase">Disemak Oleh:</p>
+            <input type="text" id="namaPenyemak" placeholder="NAMA GURU PENASIHAT" class="w-full bg-white p-3 rounded-xl text-center font-bold uppercase text-red-700 shadow-md">
+          </div>
         </div>
 
         <div class="text-center pt-6 no-print">
-          <button type="button" id="printBtn" class="w-full md:w-auto bg-white text-red-700 px-10 py-5 rounded-2xl font-black shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 mx-auto">
-            CETAK LAPORAN (PDF)
+          <button type="button" id="printBtn" class="w-full md:w-auto bg-white text-red-700 px-10 py-5 rounded-2xl font-black shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 mx-auto uppercase">
+            Cetak Laporan (PDF)
           </button>
         </div>
       </form>
@@ -155,10 +149,8 @@
       for (let i = 1; i <= 10; i++) {
         const div = document.createElement('div');
         div.className = 'flex items-center gap-2';
-        div.innerHTML = `
-          <span class="text-white/80 font-bold text-xs">${i}.</span>
-          <select id="guru${i}" class="w-full p-2 rounded-lg bg-white/90 text-xs focus:bg-white focus:outline-none">
-            <option value="">-- Pilih Guru --</option>
+        div.innerHTML = `<span class="text-white/80 font-bold text-xs">${i}.</span>
+          <select id="guru${i}" class="w-full p-2 rounded-lg bg-white/90 text-xs focus:bg-white"><option value="">-- Pilih Guru --</option>
             ${teachersList.map(t => `<option value="${t}">${t}</option>`).join('')}
           </select>`;
         container.appendChild(div);
@@ -168,9 +160,7 @@
     function previewImage(input, previewId) {
       if (input.files && input.files[0]) {
         const reader = new FileReader();
-        reader.onload = (e) => {
-          document.getElementById(previewId).innerHTML = `<img src="${e.target.result}" class="preview-img">`;
-        };
+        reader.onload = (e) => { document.getElementById(previewId).innerHTML = `<img src="${e.target.result}" class="preview-img">`; };
         reader.readAsDataURL(input.files[0]);
       }
     }
@@ -178,15 +168,16 @@
     function generatePDFPreview() {
       const data = {
         unit: document.getElementById('editableUnit').value || '-',
-        perjumpaanKali: document.getElementById('perjumpaanKali').value || '-',
+        kali: document.getElementById('perjumpaanKali').value || '-',
         tarikh: document.getElementById('tarikh').value,
         tempat: document.getElementById('tempat').value,
         masa: document.getElementById('masa').value + ' ' + document.getElementById('masaWaktu').value,
         hadir: document.getElementById('ahliHadir').value + ' / ' + document.getElementById('jumlahAhli').value,
         tajuk: document.getElementById('tajukAktiviti').value || '-',
         guru: Array.from({length:10}, (_,i) => document.getElementById(`guru${i+1}`).value).filter(v => v),
-        refleksi: document.getElementById('refleksi').value,
-        ulasan: document.getElementById('ulasan').value,
+        pikebm: document.getElementById('pikebm').value || '-',
+        refleksi: document.getElementById('refleksi').value || '-',
+        ulasan: document.getElementById('ulasan').value || '-',
         murid: document.getElementById('namaMurid').value,
         penyemak: document.getElementById('namaPenyemak').value,
         gambar: Array.from({length:4}, (_,i) => {
@@ -197,61 +188,58 @@
 
       const pdfWin = window.open('', '_blank');
       pdfWin.document.write(`
-        <html>
-        <head>
-          <style>
+        <html><head><style>
             @page { size: A4 portrait; margin: 0; }
             body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; width: 210mm; height: 297mm; position: relative; overflow: hidden; }
             .bg-full { position: absolute; top: 0; left: 0; width: 210mm; height: 297mm; z-index: -1; }
-            .content { position: relative; z-index: 10; padding: 12mm 18mm; color: white; height: 297mm; display: flex; flex-direction: column; box-sizing: border-box; }
-            .info-box { background: white !important; color: black; border-radius: 8px; padding: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 10px; -webkit-print-color-adjust: exact !important; }
-            .white-card { background: white !important; color: black; padding: 8px; border-radius: 6px; font-size: 8pt; font-weight: 600; -webkit-print-color-adjust: exact !important; }
-            .section-title { font-weight: 700; border-bottom: 1.5px solid rgba(255,255,255,0.4); margin: 8px 0 4px; font-size: 9pt; text-transform: uppercase; }
-            .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 5px; }
-            .img-item { background: white !important; padding: 4px; border-radius: 4px; text-align: center; -webkit-print-color-adjust: exact !important; }
-            .img-item img { width: 100%; height: 110px; object-fit: cover; }
-            .footer-sig { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: auto; margin-bottom: 15mm; text-align: center; }
-            .sig-line { border-top: 1.5px solid white; margin-top: 30px; padding-top: 5px; font-weight: 700; font-size: 8pt; }
-            .label { color: #DC2626; font-size: 7pt; font-weight: 700; text-transform: uppercase; }
-          </style>
-        </head>
+            .content { position: relative; z-index: 10; padding: 10mm 15mm; color: white; height: 297mm; display: flex; flex-direction: column; box-sizing: border-box; }
+            .info-box { background: white !important; color: black; border-radius: 8px; padding: 6px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 8px; -webkit-print-color-adjust: exact !important; }
+            .white-card { background: white !important; color: black; padding: 6px 10px; border-radius: 6px; font-size: 7.5pt; font-weight: 600; -webkit-print-color-adjust: exact !important; line-height: 1.2; }
+            .section-title { font-weight: 700; border-bottom: 1.2px solid rgba(255,255,255,0.4); margin: 6px 0 3px; font-size: 8pt; text-transform: uppercase; }
+            .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+            .img-item { background: white !important; padding: 3px; border-radius: 4px; text-align: center; -webkit-print-color-adjust: exact !important; }
+            .img-item img { width: 100%; height: 95px; object-fit: cover; }
+            .footer-sig { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: auto; margin-bottom: 12mm; text-align: center; }
+            .sig-line { border-top: 1.2px solid white; margin-top: 25px; padding-top: 3px; font-weight: 700; font-size: 8pt; }
+            .label { color: #DC2626; font-size: 6.5pt; font-weight: 700; text-transform: uppercase; }
+        </style></head>
         <body onload="window.print()">
           <img src="https://i.imgur.com/j5Ojna9.png" class="bg-full">
           <div class="content">
-            <img src="https://i.imgur.com/DLy3jZn.png" style="width:70px; display:block; margin:0 auto 5px;">
-            <div style="text-align:center; margin-bottom:10px;">
-                <div style="font-size:14pt; font-weight:700;">LAPORAN AKTIVITI KOKURIKULUM</div>
-                <div style="font-size:10pt;">SK BANDAR TUN HUSSEIN ONN 2</div>
-                <div style="margin-top:5px;"><span style="background:white !important; color:red; padding:2px 12px; border-radius:10px; font-weight:700; font-size:8pt; -webkit-print-color-adjust: exact !important;">UNIT: ${data.unit} (KALI KE-${data.perjumpaanKali})</span></div>
+            <img src="https://i.imgur.com/DLy3jZn.png" style="width:60px; display:block; margin:0 auto 5px;">
+            <div style="text-align:center; margin-bottom:8px;">
+                <div style="font-size:13pt; font-weight:700;">LAPORAN AKTIVITI KOKURIKULUM</div>
+                <div style="font-size:9pt;">SK BANDAR TUN HUSSEIN ONN 2</div>
+                <div style="margin-top:4px;"><span style="background:white !important; color:red; padding:2px 12px; border-radius:10px; font-weight:700; font-size:7.5pt; -webkit-print-color-adjust: exact !important;">UNIT: ${data.unit} (KALI KE-${data.kali})</span></div>
             </div>
             <div class="info-box">
-                <div><div class="label">Tarikh</div><div style="font-size:9pt; font-weight:600;">${data.tarikh}</div></div>
-                <div><div class="label">Tempat</div><div style="font-size:9pt; font-weight:600;">${data.tempat}</div></div>
-                <div><div class="label">Masa</div><div style="font-size:9pt; font-weight:600;">${data.masa}</div></div>
-                <div><div class="label">Kehadiran</div><div style="font-size:9pt; font-weight:600;">${data.hadir} Orang</div></div>
+                <div><div class="label">Tarikh</div><div style="font-size:8pt; font-weight:600;">${data.tarikh}</div></div>
+                <div><div class="label">Tempat</div><div style="font-size:8pt; font-weight:600;">${data.tempat}</div></div>
+                <div><div class="label">Masa</div><div style="font-size:8pt; font-weight:600;">${data.masa}</div></div>
+                <div><div class="label">Kehadiran</div><div style="font-size:8pt; font-weight:600;">${data.hadir} Orang</div></div>
             </div>
             <div class="section-title">TAJUK AKTIVITI</div>
             <div class="white-card" style="color:red; text-transform:uppercase;">${data.tajuk}</div>
             <div class="section-title">SENARAI GURU</div>
             <div class="white-card"><div style="display:grid; grid-template-columns:1fr 1fr; gap:2px;">${data.guru.map((g,i)=>`<div>${i+1}. ${g}</div>`).join('')}</div></div>
+            <div class="section-title">SISIPAN AKTIVITI PIKeBM</div>
+            <div class="white-card">${data.pikebm}</div>
             <div class="section-title">GAMBAR AKTIVITI</div>
             <div class="img-grid">${data.gambar.map((src,i)=>`<div class="img-item"><img src="${src}"><div style="font-size:6pt; font-weight:bold; color:black;">FOTO ${i+1}</div></div>`).join('')}</div>
             <div class="section-title">REFLEKSI & ULASAN</div>
-            <div class="white-card" style="margin-bottom:5px;">${data.refleksi || '-'}</div>
-            <div class="white-card">${data.ulasan || '-'}</div>
+            <div class="white-card" style="margin-bottom:3px;">${data.refleksi}</div>
+            <div class="white-card">${data.ulasan}</div>
             <div class="footer-sig">
                 <div><div class="sig-line">${data.murid || '........................'}</div><div style="font-size:7pt;">SETIAUSAHA UNIT</div></div>
                 <div><div class="sig-line">${data.penyemak || '........................'}</div><div style="font-size:7pt;">GURU PENASIHAT</div></div>
             </div>
           </div>
-        </body>
-        </html>
+        </body></html>
       `);
       pdfWin.document.close();
     }
-
-    document.getElementById('printBtn').onclick = generatePDFPreview;
     window.onload = generateGuruFields;
+    document.getElementById('printBtn').onclick = generatePDFPreview;
   </script>
 </body>
 </html>
